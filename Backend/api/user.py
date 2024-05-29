@@ -3,7 +3,8 @@
 
 from fastapi import FastAPI, HTTPException #framework (se necesita instalar modulo)
 from pydantic import BaseModel #para hacer clases
-from fastapi.responses import HTMLResponse #
+from fastapi.responses import HTMLResponse #Codigo de respuestas de http
+from sqlalchemy import Table, Column
 import aiofiles #para leer archivos ej, leer el front (se necesita instalar modulo)
 
 app = FastAPI()
