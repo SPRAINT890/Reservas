@@ -18,8 +18,8 @@ class User(BaseModel):
 
 #lista de usarios
 userslist = [User(name = "brais", surname = "moure", age = 25, id = 1),
-         User(name = "moure", surname = "dev", age = 25, id = 2),
-         User(name = "Haakon", surname = "moure", age = 25, id = 3)]
+             User(name = "moure", surname = "dev", age = 25, id = 2),
+             User(name = "Haakon", surname = "moure", age = 25, id = 3)]
 
 #devuelve todos los usuarios
 @app.get("/users")
@@ -49,13 +49,6 @@ async def usersjson():
     return [{"name": "brais", "surname": "moure"},
             {"name": "moure", "surname": "dev"},
             {"name": "Haakon", "surname": "moure"}]
-
-#prueba de leer un fronts
-@app.get("/")
-async def get():
-    async with aiofiles.open("../../Frontend/hola.html", mode="r") as f:
-        html_content = await f.read()
-    return HTMLResponse(content=html_content)
 
 #agregar usuario
 @app.post("/user/", status_code=201)
