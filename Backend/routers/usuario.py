@@ -2,30 +2,26 @@
 #datos no obligatorio user query
 
 from fastapi import APIRouter, HTTPException #framework (se necesita instalar modulo)
-from pydantic import BaseModel #para hacer clases
 from fastapi.responses import HTMLResponse #Codigo de respuestas de http
-from sqlalchemy import Table, Column
 import aiofiles #para leer archivos ej, leer el front (se necesita instalar modulo)
+from ..config.BD import conexionDB
+from Backend.models.usuario_table import usuario
+from ..schemas.Usuario import UserDB
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+f = Fernet(key)
 
 router = APIRouter(responses={404: {"message": "No encontrado"}},
                    tags=["users"])
 
-#entidad User
-class User(BaseModel):
-    id: int
-    name: str
-    surname: str
-    age: int
-
 #lista de usarios
-userslist = [User(name = "brais", surname = "moure", age = 25, id = 1),
-             User(name = "moure", surname = "dev", age = 25, id = 2),
-             User(name = "Haakon", surname = "moure", age = 25, id = 3)]
+userslist = [ ]
 
 #devuelve todos los usuarios
 @router.get("/users")
-async def users():
-    return userslist
+async def get_users():
+    return conexionDB.execute(usuario.select()).fetchall
 
 #devuelve el usuario con id
 @router.get("/user/{id}") #usuario por path
@@ -43,27 +39,26 @@ def search_user(id: int):
     except:
         return {"error":"Id no encontrado"}
 
-
-#devuelve los usuarios como json
-@router.get("/usersjson")
-async def usersjson():
-    return [{"name": "brais", "surname": "moure"},
-            {"name": "moure", "surname": "dev"},
-            {"name": "Haakon", "surname": "moure"}]
-
 #agregar usuario
 @router.post("/user/", status_code=201)
-async def user(user: User):
-    if type(search_user(user.id)) == User:
-        raise HTTPException(status_code=400, detail="usuario repetido")
-    else:
-        userslist.append(user)
-        return "agregado"
+async def create_user(newuserraw: UserDB):
+    #if type(search_user(user.id)) == UserDB:
+    #    raise HTTPException(status_code=400, detail="usuario repetido")
+    #else:
+    newuser = {"ci": newuserraw.ci, 
+               "nombre": newuserraw.nombre,
+               "apellido": newuserraw.apellido,
+               "email": newuserraw.email,
+               "contraseña": f.encrypt(newuserraw.contraseña.encode("utf-8"))}
+    
+    resultado = conexionDB.execute(usuario.insert().values(newuser))
+    print(resultado)
+    return "agregado"
 
 #modificar usuario
 @router.put("/user/", status_code=202)
-async def user(user: User):
-    if type(search_user(user.id)) != User:
+async def user(user: UserDB):
+    if type(search_user(user.id)) != UserDB:
         raise HTTPException(status_code=404, detail="usuario no encontrado")
     for index, usersaved in enumerate(userslist):
         if usersaved.id == user.id:
@@ -73,7 +68,7 @@ async def user(user: User):
 #borrar
 @router.delete("/user/{id}", status_code=202)
 async def user(id: int):
-    if type(search_user(id)) != User:
+    if type(search_user(id)) != UserDB:
         raise HTTPException(status_code=404, detail="usuario no encontrado")
     for index, usersaved in enumerate(userslist):
         if usersaved.id == id:

@@ -4,5 +4,6 @@ mysql-connector-python
 pydantic
 sqlalchemy
 aiofiles
+pymysql
 python-jose[cryptography]
 passlib[bcrypt]
