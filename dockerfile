@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /code
 
 # Comando para iniciar la aplicación
-CMD ["uvicorn", "Backend.api.user:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "Backend.api.main:app", "--host", "0.0.0.0", "--port", "8080"]

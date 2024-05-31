@@ -1,13 +1,14 @@
 #datos obligatorio usar path
 #datos no obligatorio user query
 
-from fastapi import FastAPI, HTTPException #framework (se necesita instalar modulo)
+from fastapi import APIRouter, HTTPException #framework (se necesita instalar modulo)
 from pydantic import BaseModel #para hacer clases
 from fastapi.responses import HTMLResponse #Codigo de respuestas de http
 from sqlalchemy import Table, Column
 import aiofiles #para leer archivos ej, leer el front (se necesita instalar modulo)
 
-app = FastAPI()
+router = APIRouter(responses={404: {"message": "No encontrado"}},
+                   tags=["users"])
 
 #entidad User
 class User(BaseModel):
@@ -22,16 +23,16 @@ userslist = [User(name = "brais", surname = "moure", age = 25, id = 1),
              User(name = "Haakon", surname = "moure", age = 25, id = 3)]
 
 #devuelve todos los usuarios
-@app.get("/users")
+@router.get("/users")
 async def users():
     return userslist
 
 #devuelve el usuario con id
-@app.get("/user/{id}") #usuario por path
+@router.get("/user/{id}") #usuario por path
 async def user(id: int):
     return search_user(id)
 
-@app.get("/userquery/") #paramentro por query ?id=1
+@router.get("/userquery/") #paramentro por query ?id=1
 async def userquery(id: int):
     return search_user(id)
 
@@ -44,14 +45,14 @@ def search_user(id: int):
 
 
 #devuelve los usuarios como json
-@app.get("/usersjson")
+@router.get("/usersjson")
 async def usersjson():
     return [{"name": "brais", "surname": "moure"},
             {"name": "moure", "surname": "dev"},
             {"name": "Haakon", "surname": "moure"}]
 
 #agregar usuario
-@app.post("/user/", status_code=201)
+@router.post("/user/", status_code=201)
 async def user(user: User):
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code=400, detail="usuario repetido")
@@ -60,7 +61,7 @@ async def user(user: User):
         return "agregado"
 
 #modificar usuario
-@app.put("/user/", status_code=202)
+@router.put("/user/", status_code=202)
 async def user(user: User):
     if type(search_user(user.id)) != User:
         raise HTTPException(status_code=404, detail="usuario no encontrado")
@@ -70,7 +71,7 @@ async def user(user: User):
             return "ok"
 
 #borrar
-@app.delete("/user/{id}", status_code=202)
+@router.delete("/user/{id}", status_code=202)
 async def user(id: int):
     if type(search_user(id)) != User:
         raise HTTPException(status_code=404, detail="usuario no encontrado")
