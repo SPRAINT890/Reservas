@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Comando para ejecutar la aplicación
-CMD ["uvicorn", "Backend.api.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
+CMD ["uvicorn", "Backend.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
