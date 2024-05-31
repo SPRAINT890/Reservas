@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:latest
-    restart: always
+    image: mysql:8.0
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: reservas
-      MYSQL_USER: app
-      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
@@ -16,14 +16,15 @@ services:
 
   web:
     build: .
-    container_name: fastapi_container
-    command: uvicorn Backend.api.main:app --host 0.0.0.0 --port 8080 --reload
-    volumes:
-      - .:/code
+    container_name: fastapi
     ports:
       - "8080:8080"
     depends_on:
       - db
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=mysql+pymysql://user:password@db:3306/mydatabase
 
 volumes:
   db_data:

@@ -2,16 +2,19 @@
 FROM python:3.9
 
 # Establece el directorio de trabajo
-WORKDIR /code
+WORKDIR /app
 
 # Copia los archivos de requerimientos
-COPY Backend/requirements.txt .
+COPY requirements.txt .
 
 # Instala las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el código de la aplicación
-COPY . /code
+COPY . .
 
-# Comando para iniciar la aplicación
-CMD ["uvicorn", "Backend.api.main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Expone el puerto en el que correrá la aplicación
+EXPOSE 8080
+
+# Comando para ejecutar la aplicación
+CMD ["uvicorn", "Backend.api.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
