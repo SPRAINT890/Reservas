@@ -4,24 +4,33 @@
 from fastapi import APIRouter, HTTPException #framework (se necesita instalar modulo)
 from fastapi.responses import HTMLResponse #Codigo de respuestas de http
 import aiofiles #para leer archivos ej, leer el front (se necesita instalar modulo)
-from ..config.BD import conexionDB
+from Backend.config.bd import conexionDB
 from Backend.models.usuario_table import usuario
-from ..schemas.Usuario import UserDB
+from Backend.schemas.Usuario import UserDB
 from cryptography.fernet import Fernet
 
 key = Fernet.generate_key()
 f = Fernet(key)
 
 router = APIRouter(responses={404: {"message": "No encontrado"}},
-                   tags=["users"])
+                   tags=["usuarios"])
 
 #lista de usarios
 userslist = [ ]
 
 #devuelve todos los usuarios
-@router.get("/users")
-async def get_users():
-    return conexionDB.execute(usuario.select()).fetchall
+@router.get('/users')
+def get_users():
+    lista = conexionDB.execute(usuario.select()).fetchall()
+
+    rows = []
+    for t in lista:
+        ci = t[0]
+        nombre = t[1]
+        apellido = t[2]
+        email = t[3]
+        rows.append({"ci": ci, "nombre": nombre, "apellido": apellido, "email": email})
+    return rows
 
 #devuelve el usuario con id
 @router.get("/user/{id}") #usuario por path
@@ -40,7 +49,7 @@ def search_user(id: int):
         return {"error":"Id no encontrado"}
 
 #agregar usuario
-@router.post("/user/", status_code=201)
+@router.post("/register/newuser", status_code=201)
 async def create_user(newuserraw: UserDB):
     #if type(search_user(user.id)) == UserDB:
     #    raise HTTPException(status_code=400, detail="usuario repetido")
@@ -49,11 +58,10 @@ async def create_user(newuserraw: UserDB):
                "nombre": newuserraw.nombre,
                "apellido": newuserraw.apellido,
                "email": newuserraw.email,
-               "contraseña": f.encrypt(newuserraw.contraseña.encode("utf-8"))}
-    
+               "contrasena": f.encrypt(newuserraw.contraseña.encode("utf-8"))}
     resultado = conexionDB.execute(usuario.insert().values(newuser))
     print(resultado)
-    return "agregado"
+    return conexionDB.execute(usuario.select())
 
 #modificar usuario
 @router.put("/user/", status_code=202)

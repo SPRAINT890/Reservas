@@ -25,7 +25,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - DATABASE_URL=mysql+pymysql://user:password@db:3306/reservas
+      - DATABASE_URL=mysql+pymysql://root:root@db:3306/reservas
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
