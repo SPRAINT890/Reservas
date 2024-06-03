@@ -12,7 +12,7 @@ from Backend.config.bd import engine, SessionLocal
 from sqlalchemy.orm import Session
 
 router = APIRouter(responses={404: {"message": "No encontrado"}},
-                   tags=["usuarios"])
+                   tags=["Usuarios"])
 
 key = Fernet.generate_key()
 f = Fernet(key)
