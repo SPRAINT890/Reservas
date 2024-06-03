@@ -1,9 +1,12 @@
 from typing import Optional
 from pydantic import BaseModel #para hacer clases
 
-class UserDB(BaseModel):
+class UsuarioBase(BaseModel):
     ci: int
     nombre: str
     apellido: Optional[str]
     email: str
-    contraseña: str
+    contrasena: str
+
+class UsuarioDBBase(UsuarioBase):
+    contrasena: str
