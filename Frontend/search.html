@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>DiningSpot</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- slick slider -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map" integrity="undefined" crossorigin="anonymous" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <style>
+    .card {
+      border: 1px solid black;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .card-body {
+      position: relative;
+    }
+
+    .card .btn-reservar {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <!-- header section starts -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              DiningSpot
+            </span>
+          </a>
+          <div class="" id="">
+            <div class="User_option">
+              <a href="login.html">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Login</span>
+              </a>
+              <form class="form-inline ">
+                <input type="search" placeholder="Search" />
+                <button class="btn nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <img src="images/menu.png" alt="">
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre Nosotros</a>
+                <a href="blog.html">Blog</a>
+                <a href="testimonial.html">Testimonios</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+    <!-- search results section -->
+    <section id="NuestrosRestaurantes" class="recipe_section layout_padding-top">
+      <div class="container">
+        <div class="heading_container heading_center">
+          <h2 style="color: white; font-weight: bold;">
+            Resultados de búsqueda
+          </h2>
+        </div>
+        <div class="search-results-container">
+          <div class="container">
+            <div id="searchResults" class="row">
+              <!-- Aquí se mostrarán los resultados -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end search results section -->
+
+    
+
+  </div>
+
+  <!-- jQuery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.js"></script>
+  <!-- slick slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- custom js -->
+  <script src="js/custom.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Obtener los parámetros de la URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const restaurantName = urlParams.get('restaurant');
+      const location = urlParams.get('location');
+
+      // Simulated search results
+      const searchResults = [
+        {
+          name: 'MBC Carrasco',
+          image: 'MBC carrasco.jpg',
+          rating: 4.5,
+          type: 'Cerveza Artesanal',
+          hours: ['20:30', '21:00', '21:30'],
+          location: 'Carrasco',
+          price: '$$$'
+        },
+        {
+          name: 'La Pasiva',
+          image: 'La Pasiva.jpg',
+          rating: 4.0,
+          type: 'Comida Uruguaya',
+          hours: ['18:00', '19:00', '20:00'],
+          location: 'Centro',
+          price: '$$'
+        },
+        {
+          name: 'El Palenque',
+          image: 'El Palenque.jfif',
+          rating: 4.7,
+          type: 'Parrillada',
+          hours: ['12:00', '13:00', '14:00'],
+          location: 'Ciudad Vieja',
+          price: '$$$$'
+        },
+        {
+          name: 'La Fonda',
+          image: 'La Fonda.jpg',
+          rating: 4.3,
+          type: 'Cocina Internacional',
+          hours: ['20:00', '21:00', '22:00'],
+          location: 'Punta Carretas',
+          price: '$$$'
+        },
+        {
+          name: 'Bar Facal',
+          image: 'fachada.jpg',
+          rating: 4.1,
+          type: 'Cafetería',
+          hours: ['10:00', '11:00', '12:00'],
+          location: 'Centro',
+          price: '$$'
+        }
+      ];
+
+      let filteredResults = searchResults.filter(result => {
+        return (restaurantName === '' || result.name.toLowerCase().includes(restaurantName.toLowerCase())) &&
+               (location === '' || result.location.toLowerCase().includes(location.toLowerCase()));
+      });
+
+      displayResults(filteredResults);
+
+      function displayResults(results) {
+        $('#searchResults').empty();
+        if (results.length > 0) {
+          results.forEach(result => {
+            $('#searchResults').append(`
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="${result.image}" class="card-img" alt="${result.name}">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">${result.name}</h5>
+                        <p class="card-text">
+                          <span class="rating">${getStars(result.rating)}</span>
+                          <span>${result.type}</span>
+                        </p>
+                        <p class="card-text">
+                          ${result.hours.map(hour => `<button class="btn btn-secondary btn-sm mr-1">${hour}</button>`).join('')}
+                        </p>
+                        <p class="card-text"><small class="text-muted">${result.location}</small></p>
+                        <p class="card-text"><small class="text-muted">${result.price}</small></p>
+                        <button class="btn btn-outline-danger btn-sm"><i class="fa fa-heart"></i></button>
+                        <button class="btn btn-primary btn-reservar">Reservar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `);
+          });
+        } else {
+          $('#searchResults').append('<p>No results found.</p>');
+        }
+      }
+
+      function getStars(rating) {
+        const fullStars = Math.floor(rating);
+        const halfStar = rating % 1 !== 0;
+        const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+        return `${'<i class="fa fa-star"></i>'.repeat(fullStars)}${halfStar ? '<i class="fa fa-star-half-o"></i>' : ''}${'<i class="fa fa-star-o"></i>'.repeat(emptyStars)}`;
+      }
+    });
+  </script>
+
+</body>
+
+</html>
