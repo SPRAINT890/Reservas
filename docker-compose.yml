@@ -14,7 +14,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  web:
+  api:
     build: .
     container_name: fastapi
     restart: always
@@ -23,10 +23,21 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app
+      - ./Backend:/app
     environment:
       - DATABASE_URL=mysql+pymysql://root:root@db:3306/reservas
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  frontend:
+    image: node:16
+    container_name: npx-frontend
+    command: sh -c "cd /app/frontend && npx serve -s"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - api
 
 volumes:
   db_data:

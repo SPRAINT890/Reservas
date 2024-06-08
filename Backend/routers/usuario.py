@@ -5,10 +5,10 @@ from fastapi import APIRouter, HTTPException, Depends, status #framework (se nec
 from fastapi.responses import HTMLResponse #Codigo de respuestas de http
 from typing import Annotated
 import aiofiles #para leer archivos ej, leer el front (se necesita instalar modulo)
-from Backend.schemas.Usuario import UsuarioDBBase, UsuarioBase
+from schemas.Usuario import UsuarioDBBase, UsuarioBase
 from cryptography.fernet import Fernet
-from Backend.models import models
-from Backend.config.bd import engine, SessionLocal
+from models import models
+from config.bd import engine, SessionLocal
 from sqlalchemy.orm import Session
 
 router = APIRouter(responses={404: {"message": "No encontrado"}},

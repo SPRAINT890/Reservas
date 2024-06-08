@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from typing import Annotated
-from Backend.schemas.Restaurante import RestauranteBase
-from Backend.models import models
-from Backend.config.bd import engine, SessionLocal
+from schemas.Restaurante import RestauranteBase
+from models import models
+from config.bd import engine, SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
