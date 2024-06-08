@@ -6,6 +6,11 @@ class RestauranteBase(BaseModel):
     calle: str
     esquina: str
     reserva_max: int
+    imagen: str
+    calificacion: float
+    tipo: str
+    precio: str
+
 
 class RestauranteBDBase(RestauranteBase):
     id_restaurante: int

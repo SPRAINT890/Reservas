@@ -21,7 +21,7 @@ class Restaurante(Base):
     reserva_max = Column(Integer, nullable=False)
     
     imagen = Column(String(250))
-    rating = Column(Double)
+    calificacion = Column(Double)
     precio = Column(Integer)
     tipo = Column(String(50))
 
