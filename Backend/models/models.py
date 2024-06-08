@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, Double
 from sqlalchemy.orm import relationship
 from config.bd import Base
 
@@ -19,17 +19,20 @@ class Restaurante(Base):
     calle = Column(String(250), nullable=False, index=True)
     esquina = Column(String(250), nullable=False, index=True)
     reserva_max = Column(Integer, nullable=False)
+    
+    imagen = Column(String(250))
+    rating = Column(Double)
+    precio = Column(Integer)
+    tipo = Column(String(50))
 
 
 class RestauranteHora(Base):
     __tablename__ = 'restauranteHora'
-
-    rest = relationship('restaurante', ForeignKey('RestauranteHora.id_restaurante'))
     
     id_restaurante = Column(Integer, primary_key=True, nullable=False)
     hora = Column(Integer, primary_key=True, nullable=False)
 
-class Reserva(Base):
+"""class Reserva(Base):
     __tablename__ = 'reserva'
     
     rest = None
@@ -40,4 +43,4 @@ class Reserva(Base):
     id_restaurante = Column(Integer)
     hora = Column(Integer, nullable=False)
     fecha = Column(DateTime, nullable=False)
-    num_silla = Column(Integer, nullable=False)
+    num_silla = Column(Integer, nullable=False)"""

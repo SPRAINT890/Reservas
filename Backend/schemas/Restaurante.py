@@ -9,3 +9,7 @@ class RestauranteBase(BaseModel):
 
 class RestauranteBDBase(RestauranteBase):
     id_restaurante: int
+
+class RestauranteHorarioBase(BaseModel):
+    id_restaurante: int
+    hora: int
