@@ -3,8 +3,6 @@ import json
 import asyncio
 from aiosmtplib import send
 from email.message import EmailMessage
-import routers.reserva
-import routers.usuario
 
 async def send_email(to_email, subject, content):
     message = EmailMessage()
@@ -24,7 +22,6 @@ def callback(ch, method, properties, body):
     reserva = json.loads(body)
     mensaje = f"Hola, tu reserva ha sido confirmada."
 
-    
     # Cambia la dirección de correo electrónico aquí
     destinatario = "destinatario@example.com"
     
