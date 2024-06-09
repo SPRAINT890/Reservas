@@ -7,21 +7,21 @@ from email.message import EmailMessage
 
 async def send_email(to_email, subject, content):
     message = EmailMessage()
-    message["From"] = os.environ['EMAIL_FROM']
+    message["From"] = 'spraint098@gmail.com'
     message["To"] = to_email
     message["Subject"] = subject
     message.set_content(content)
 
     try:
-        await send(message, hostname=os.environ['SMTP_HOST'], port=int(os.environ['SMTP_PORT']),
-                   username=os.environ['SMTP_USER'], password=os.environ['SMTP_PASS'], use_tls=False, start_tls=True)
+        await send(message, hostname="smtp.gmail.com", port=587,
+                   username='spraint098@gmail.com', password='bfxbjtjzqlwluymx', use_tls=False, start_tls=True)
         print(f"Correo enviado a {to_email}")
     except Exception as e:
         print(f"Error al enviar correo a {to_email}: {e}")
 
 def callback(ch, method, properties, body):
     reserva = json.loads(body)
-    mensaje = f"Hola, tu reserva ha sido confirmada."
+    mensaje =  "Estimado " + reserva['cliente']['nombre'] + ", tu reserva a sido confirmada en " + reserva['restaurante']['nombre']
 
     destinatario = reserva['cliente']['email']
 
@@ -31,7 +31,7 @@ def callback(ch, method, properties, body):
     loop.close()
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
     channel.queue_declare(queue='Reservations')
     channel.basic_consume(queue='Reservations', on_message_callback=callback, auto_ack=True)

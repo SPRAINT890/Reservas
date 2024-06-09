@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import jwt_auth_user, usuario, restaurante
+from routers import jwt_auth_user, usuario, restaurante, reserva
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
@@ -20,8 +20,9 @@ app.add_middleware(
 
 #routers
 app.include_router(usuario.router)
-app.include_router(jwt_auth_user.router)
+#app.include_router(jwt_auth_user.router)
 app.include_router(restaurante.router)
+app.include_router(reserva.router)
 
 @app.get("/")
 async def root():

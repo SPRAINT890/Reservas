@@ -7,3 +7,4 @@ aiofiles
 pymysql
 python-jose[cryptography]
 passlib[bcrypt]
+pika

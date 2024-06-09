@@ -32,15 +32,12 @@ class RestauranteHora(Base):
     id_restaurante = Column(Integer, primary_key=True, nullable=False)
     hora = Column(Integer, primary_key=True, nullable=False)
 
-"""class Reserva(Base):
+class Reserva(Base):
     __tablename__ = 'reserva'
     
-    rest = None
-    email = None
-    
     id_reserva = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    email_reservado = Column(String(190))
-    id_restaurante = Column(Integer)
+    email_reservado = Column(String(190), primary_key=True, index=True, nullable=False)
+    id_restaurante = Column(Integer, primary_key=True, index=True, nullable=False)
     hora = Column(Integer, nullable=False)
     fecha = Column(DateTime, nullable=False)
-    num_silla = Column(Integer, nullable=False)"""
+    num_silla = Column(Integer, nullable=False)

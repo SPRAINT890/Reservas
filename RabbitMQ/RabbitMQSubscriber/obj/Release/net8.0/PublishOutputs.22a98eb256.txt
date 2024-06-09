@@ -1,6 +1,0 @@
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQSubscriber.exe
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQSubscriber.dll
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQSubscriber.deps.json
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQSubscriber.runtimeconfig.json
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQSubscriber.pdb
-C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQSubscriber\RabbitMQ.Client.dll
