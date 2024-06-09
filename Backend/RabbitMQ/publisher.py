@@ -7,7 +7,7 @@ def publish_message():
     channel = connection.channel()
 
     # Declara la cola en la que se publicará el mensaje
-    channel.queue_declare(queue='reservations')
+    channel.queue_declare(queue='Reservations')
 
     # Define el mensaje a enviar
     reserva = {

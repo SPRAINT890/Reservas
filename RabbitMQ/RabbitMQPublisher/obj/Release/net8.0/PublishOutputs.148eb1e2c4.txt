@@ -1,0 +1,6 @@
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQPublisher.exe
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQPublisher.dll
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQPublisher.deps.json
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQPublisher.runtimeconfig.json
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQPublisher.pdb
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\RabbitMQ.Client.dll

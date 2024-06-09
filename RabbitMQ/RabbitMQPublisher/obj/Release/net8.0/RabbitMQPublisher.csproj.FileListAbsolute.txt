@@ -1,0 +1,17 @@
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQPublisher.exe
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQPublisher.deps.json
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQPublisher.runtimeconfig.json
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQPublisher.dll
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQPublisher.pdb
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\bin\Release\net8.0\RabbitMQ.Client.dll
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.csproj.AssemblyReference.cache
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.AssemblyInfoInputs.cache
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.AssemblyInfo.cs
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.csproj.CoreCompileInputs.cache
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQ.A35489C6.Up2Date
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.dll
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\refint\RabbitMQPublisher.dll
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.pdb
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\RabbitMQPublisher.genruntimeconfig.cache
+C:\Users\surfaceLaptop3\Desktop\Conejo MQ\RabbitMQPublisher\obj\Release\net8.0\ref\RabbitMQPublisher.dll
