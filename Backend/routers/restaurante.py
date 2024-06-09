@@ -21,8 +21,8 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.get("/busqueda/{calle}", status_code=status.HTTP_202_ACCEPTED)
-async def get_restaurante(direccion: str, db: db_dependency):
-    return db.query(models.Restaurante).filter(or_(models.Restaurante.esquina == direccion, models.Restaurante.calle == direccion)).all() and db.query(models.RestauranteHora).all()
+async def get_restaurante(calle: str, db: db_dependency):
+    return db.query(models.Restaurante).filter(or_(models.Restaurante.esquina == calle, models.Restaurante.calle == calle)).all()
 
 @router.post("/agregarrestaurante", status_code=status.HTTP_201_CREATED)
 async def add_restaurant(newrestaurantraw: RestauranteBase, db: db_dependency):

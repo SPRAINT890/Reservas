@@ -9,7 +9,7 @@ class RestauranteBase(BaseModel):
     imagen: str
     calificacion: float
     tipo: str
-    precio: str
+    precio: int
 
 
 class RestauranteBDBase(RestauranteBase):
