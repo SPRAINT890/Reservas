@@ -38,7 +38,7 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
   
   rabbitmq:
-    image: rabbitmq:3-management
+    build: ./RabbitMQ
     container_name: rabbitmq
     ports:
       - "5672:5672"

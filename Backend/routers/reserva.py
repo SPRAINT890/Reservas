@@ -34,31 +34,37 @@ async def get_reservas(id_restaurante: int, db: db_dependency):
 
 @router.post("/hacerreserva")
 async def create_reserva(email: str, idrestaurante: int, hora: int, fecha: str, numsillas: int, db: db_dependency):
-    usuario = db.query(models.Usuario).filter(models.Usuario.email == email).first()
-    restaurante = db.query(models.Restaurante).filter(models.Restaurante.id_restaurante == idrestaurante)
-    return usuario
-    #publish_message(email, usuario['nombre'], )
+    usuario = db.query(models.Usuario).filter(models.Usuario.email == email).all()
+    restaurante = db.query(models.Restaurante).filter(models.Restaurante.id_restaurante == idrestaurante).all()
+        
+    nombreusuario = email
+    if not len(usuario) == 0:
+        nombreusuario = usuario[0].nombre
+    
+    direccion = restaurante[0].calle + ' esquina ' + restaurante[0].esquina
+    
+    nombrerestaurante = restaurante[0].nombre
+    
+    publish_message(email, nombreusuario, numsillas, nombrerestaurante, direccion, hora, fecha)
 
 
-async def publish_message(email: str, nombreusuario: str, numsillas: int, nombrerestaurante: str):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('RABBITMQ_HOST', 'localhost')))
+def publish_message(email: str, nombreusuario: str, numsillas: int, nombrerestaurante: str, direccion: str, hora: int, fecha: str):
+    
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host="rabbitmq"))
     channel = connection.channel()
-
     channel.queue_declare(queue='Reservations')
 
-    reserva = {
-        "cliente": {
-            "nombre": "{nombreusuario}",
-            "email": "{email}"
-        },
-        "restaurante": {
-            "nombre": "{nombrerestaurante}",
-            "cantidad_sillas": numsillas
-        }
+    datos_reserva = {
+        "nombreusuario": nombreusuario,
+        "email": email,
+        "nombrerestaurante": nombrerestaurante,
+        "direccion": direccion,
+        "hora": hora,
+        "fecha": fecha,
+        "cantidad_sillas": numsillas
     }
     
-    newjson = json.loads(reserva)
-    message = json.dumps(reserva)
+    message = json.dumps(datos_reserva)
     channel.basic_publish(exchange='', routing_key='Reservations', body=message)
 
     print(" [x] Sent 'Reservation made'")

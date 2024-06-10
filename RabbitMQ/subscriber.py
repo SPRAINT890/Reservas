@@ -21,9 +21,10 @@ async def send_email(to_email, subject, content):
 
 def callback(ch, method, properties, body):
     reserva = json.loads(body)
-    mensaje =  "Estimado " + reserva['cliente']['nombre'] + ", tu reserva a sido confirmada en " + reserva['restaurante']['nombre']
+    
+    mensaje = "Estimado " + reserva['nombreusuario'] + ", tu reserva a sido confirmada en " + reserva['nombrerestaurante'] + " de " + reserva['direccion'] + ', para ' + str(reserva['cantidad_sillas']) + ' personas el dia ' + reserva['fecha'] + ' a las ' + str(reserva['hora'])
 
-    destinatario = reserva['cliente']['email']
+    destinatario = reserva['email']
 
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
