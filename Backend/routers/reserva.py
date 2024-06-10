@@ -6,6 +6,7 @@ from models import models
 from config.bd import engine, SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
+import datetime
 import pika
 import json
 import os
@@ -33,18 +34,18 @@ async def get_reservas(id_restaurante: int, db: db_dependency):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bd Caida")
 
 @router.post("/hacerreserva")
-async def create_reserva(email: str, idrestaurante: int, hora: int, fecha: str, numsillas: int, db: db_dependency):
+async def create_reserva(email: str, idrestaurante: int, hora: int, fecha: datetime, numsillas: int, db: db_dependency):
+    
+    
+    
+    #rabbitmq
     usuario = db.query(models.Usuario).filter(models.Usuario.email == email).all()
     restaurante = db.query(models.Restaurante).filter(models.Restaurante.id_restaurante == idrestaurante).all()
-        
     nombreusuario = email
     if not len(usuario) == 0:
         nombreusuario = usuario[0].nombre
-    
     direccion = restaurante[0].calle + ' esquina ' + restaurante[0].esquina
-    
     nombrerestaurante = restaurante[0].nombre
-    
     publish_message(email, nombreusuario, numsillas, nombrerestaurante, direccion, hora, fecha)
 
 

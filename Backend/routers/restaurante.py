@@ -4,7 +4,7 @@ from schemas.Restaurante import RestauranteBase, RestauranteBDBase, RestauranteH
 from models import models
 from config.bd import engine, SessionLocal
 from sqlalchemy.orm import Session
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 
 router = APIRouter(responses={404: {"message": "No encontrado"}},
                    tags=["Restaurantes"])
@@ -20,9 +20,17 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@router.get("/busqueda/{calle}", status_code=status.HTTP_202_ACCEPTED)
+@router.get("/restBusquedaDir/{calle}", status_code=status.HTTP_202_ACCEPTED)
 async def get_restaurante(calle: str, db: db_dependency):
     return db.query(models.Restaurante).filter(or_(models.Restaurante.esquina == calle, models.Restaurante.calle == calle)).all()
+
+@router.get("/restBusquedaNom/{nombre}", status_code=status.HTTP_202_ACCEPTED)
+async def get_restaurante(nombre: str, db: db_dependency):
+    return db.query(models.Restaurante).filter(models.Restaurante.nombre == nombre).all()
+
+@router.get("/restBusqueda/{nombre}{calle}", status_code=status.HTTP_202_ACCEPTED)
+async def get_restaurante(nombre: str, calle: str, db: db_dependency):
+    return db.query(models.Restaurante).filter(models.Restaurante.nombre == nombre,or_(models.Restaurante.calle == calle,models.Restaurante.esquina == calle)).all()
 
 @router.post("/agregarrestaurante", status_code=status.HTTP_201_CREATED)
 async def add_restaurant(newrestaurantraw: RestauranteBase, db: db_dependency):

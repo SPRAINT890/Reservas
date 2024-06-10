@@ -24,6 +24,7 @@ class Restaurante(Base):
     calificacion = Column(Double)
     precio = Column(Integer)
     tipo = Column(String(50))
+    hora_inicio = Column()
 
 
 class RestauranteHora(Base):
