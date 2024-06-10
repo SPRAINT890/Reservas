@@ -53,7 +53,7 @@
 </head>
 
 <body>
-  
+
   <div class="hero_area">
     <!-- header section starts -->
     <header class="header_section">
@@ -84,11 +84,29 @@
             </div>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="blog.html">Blog</a>
-                <a href="testimonial.html">Testimonial</a>
-              </div>
+                <a href="index.html">Inicio</a>
+                <a href="index.html#Nosotros">Nosotros</a>
+                <a href="index.html#Noticias">Noticias</a>
+                <a href="index.html#Testimonios">Testimonios</a>
+            </div>
+            
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                var links = document.querySelectorAll('.overlay-content a');
+            
+                links.forEach(function(link) {
+                  link.addEventListener('click', function(e) {
+                    e.preventDefault();  // Previene el comportamiento predeterminado del enlace
+                    var target = this.getAttribute('href');  // Obtiene el href del enlace
+            
+                    // Recarga la página y navega al hash especificado
+                    window.location.href = target;
+                    window.location.reload(true);  // true para asegurar que la página se recargue desde el servidor
+                  });
+                });
+              });
+            </script>
+            
             </div>
           </div>
         </nav>
@@ -287,12 +305,12 @@
   <!-- end app section -->
 
   <!-- about section -->
-  <section class="about_section layout_padding">
+  <section id="Nosotros" class="about_section layout_padding">
     <div class="container">
       <div class="col-md-11 col-lg-10 mx-auto">
         <div class="heading_container heading_center">
           <h2>
-            Sobre Nosotros
+            Nosotros
           </h2>
         </div>
         <div class="box">
@@ -316,11 +334,11 @@
   <!-- end about section -->
 
   <!-- news section -->
-  <section class="news_section">
+  <section id="Noticias" class="news_section">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Últimas noticias
+          Noticias
         </h2>
       </div>
       <div class="row">
@@ -366,7 +384,7 @@
   <!-- end news section -->
 
   <!-- client section -->
-  <section class="client_section layout_padding">
+  <section id="Testimonios" class="client_section layout_padding">
     <div class="container">
       <div class="col-md-11 col-lg-10 mx-auto">
         <div class="heading_container heading_center">
@@ -443,22 +461,22 @@
           <ul>
             <li class="active">
               <a href="index.html">
-                Home
+                Inicio
               </a>
             </li>
             <li>
-              <a href="about.html">
-                About
+              <a href="index.html">
+                Nosotros
               </a>
             </li>
             <li>
-              <a class="" href="blog.html">
+              <a class="" href="index.html">
                 Blog
               </a>
             </li>
             <li>
-              <a class="" href="testimonial.html">
-                Testimonial
+              <a class="" href="index.html">
+                Testimonios
               </a>
             </li>
           </ul>
@@ -501,30 +519,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-  <script type="module" src="js/app.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('#searchForm').on('submit', function(event) {
-        event.preventDefault();
-        const restaurantName = $('#inputRestaurant').val();
-        const calle = $('#inputLocation').val();
-        
-        // Redirigir a search.html con los parámetros de búsqueda
-        fetch(`http://localhost:8080/busqueda/${calle}`)
-        .then(response => response.json())
-        .then(data => {
-          // Manejar la respuesta de la API
-          console.log(data);
-          // Redirigir a search.html con los resultados de la búsqueda
-          window.location.href = `search.html?restaurant=${restaurantName}&location=${location}`;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      });
-    });
-  </script>
 
+  <script>
+   $(document).ready(function() {
+  $('#searchForm').on('submit', function(event) {
+    event.preventDefault();
+    const restaurantName = $('#inputRestaurant').val();
+    const location = $('#inputLocation').val();
+    
+    // Redirigir a search.html con los parámetros de búsqueda
+    window.location.href = `search.html?restaurant=${encodeURIComponent(restaurantName)}&location=${encodeURIComponent(location)}`;
+  });
+});
+
+  </script>
 
 </body>
 
