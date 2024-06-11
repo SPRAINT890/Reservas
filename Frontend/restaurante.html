@@ -167,15 +167,14 @@
 
       $('#reservationForm').submit(function(event) {
         event.preventDefault();
-        let reservationData = {
-          email: $('#email').val(),
-          idrestaurante: restaurantId,
-          fecha: $('#reservationDate').val(),
-          hora: $('#reservationTime').val(),
-          numsillas: $('#numPeople').val()
-        };
 
-        fetch('http://localhost:8080/hacerreserva', {
+        let email = $('#email').val()
+        let idrestaurante = restaurantId
+        let fecha = $('#reservationDate').val()
+        let hora = $('#reservationTime').val()
+        let numsillas = $('#numPeople').val()
+
+        fetch(`http://localhost:8080/hacerreserva/?email=${email}&idrestaurante=${idrestaurante}&hora=${hora}&fecha=${fecha}&numsillas=${numsillas}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
