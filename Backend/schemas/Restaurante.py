@@ -1,5 +1,4 @@
-from typing import Optional
-from pydantic import BaseModel #para hacer clases
+from pydantic import BaseModel
 import datetime
 
 class RestauranteBase(BaseModel):
@@ -15,7 +14,7 @@ class RestauranteBase(BaseModel):
     google: str
     hora_inicio: datetime.time
     hora_fin: datetime.time
-
+    descripcion: str  
 
 class RestauranteBDBase(RestauranteBase):
     id_restaurante: int
