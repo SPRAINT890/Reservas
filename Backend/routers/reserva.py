@@ -29,14 +29,21 @@ db_dependency = Annotated[Session, Depends(get_db)]
 @router.get("/verreservas/{id_restaurante}")
 async def get_reservas(id_restaurante: int, db: db_dependency):
     try:
-        return db.query(models.Reserva).filter(models.Reserva.id_restaurante == id_restaurante)
+        return db.query(models.Reserva).filter(models.Reserva.id_restaurante == id_restaurante).all()
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bd Caida")
 
 @router.post("/hacerreserva")
 async def create_reserva(email: str, idrestaurante: int, hora: str, fecha: str, numsillas: int, db: db_dependency):
-    
-    
+    raw = {"email_reservado": email,
+           "id_restaurante": idrestaurante,
+                  "hora": hora,
+                  "fecha": fecha,
+                  "num_silla": numsillas
+                  }
+    newreserva = models.Reserva(**raw)
+    db.add(newreserva)
+    db.commit()
     
     #rabbitmq
     usuario = db.query(models.Usuario).filter(models.Usuario.email == email).all()
