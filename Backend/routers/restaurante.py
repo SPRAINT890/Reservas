@@ -28,6 +28,10 @@ async def get_restaurante_by_location(calle: str, db: db_dependency):
 async def get_restaurante_by_name(nombre: str, db: db_dependency):
     return db.query(models.Restaurante).filter(models.Restaurante.nombre.contains(nombre)).all()
 
+@router.get("/restBusquedaID/{id}", status_code=status.HTTP_202_ACCEPTED)
+async def get_restaurante_by_id(id: int, db: db_dependency):
+    return db.query(models.Restaurante).filter(models.Restaurante.id_restaurante == id).first()
+
 @router.get("/restBusqueda/{nombre},{calle}", status_code=status.HTTP_202_ACCEPTED)
 async def get_restaurante(nombre: str, calle: str, db: db_dependency):
     if (nombre == "False" and calle ==  "False"):

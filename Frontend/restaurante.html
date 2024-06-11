@@ -157,12 +157,12 @@
       const urlParams = new URLSearchParams(window.location.search);
       const restaurantId = urlParams.get('id');
 
-      fetch(`http://localhost:8080/restaurante/${restaurantId}`)
+      fetch(`http://localhost:8080/restBusquedaID/${restaurantId}`)
         .then(response => response.json())
         .then(data => {
           // Update the DOM elements with restaurant data
           $('.heading_container h2').text(data.nombre);
-          $('.card-img').attr('src', data.imagen);
+          $('.card-img').attr('src', 'img/' + data.imagen);
           $('.card-title').text(data.nombre);
           $('.rating').html(renderStars(data.calificacion)); // Assuming 'calificacion' is a float or integer
           $('.card-text span:last').text(data.tipo);
