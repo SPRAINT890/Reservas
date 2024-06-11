@@ -12,7 +12,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Delfood - Restaurante</title>
+  <title>DiningSpot</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -38,7 +38,7 @@
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
           <a class="navbar-brand" href="index.html">
-            <span>Delfood</span>
+            <span>DiningSpot</span>
           </a>
         </nav>
       </div>
@@ -50,36 +50,27 @@
   <section class="layout_padding restaurant-details">
     <div class="container">
       <div class="heading_container heading_center">
-        <h2 style="color: #000;"></h2>
+        <h2 id="restaurantName" style="color: #000;"></h2>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="card mb-3 horizontal-card">
-            <img src="" class="card-img" alt="">
+            <img id="restaurantImage" src="" class="card-img" alt="Restaurant Image">
             <div class="card-body">
-              <h5 class="card-title"></h5>
+              <h5 class="card-title" id="restaurantTitle"></h5>
               <p class="card-text">
-                <span class="rating"></span>
-                <span></span> <!-- Place for restaurant type -->
+                <span class="rating" id="restaurantRating"></span>
+                <span id="restaurantType"></span> <!-- Place for restaurant type -->
               </p>
-              <p class="card-text">
-                <strong>Dirección:</strong>
-              </p>
-              <p class="card-text">
-                <strong>Horario:</strong>
-              </p>
-              <p class="card-text">
-                <strong>Teléfono:</strong>
-              </p>
-              <p class="card-text">
-                <strong>Precio promedio:</strong>
-              </p>
+              <p class="card-text"><strong>Dirección:</strong> <span id="restaurantAddress"></span></p>
+              <p class="card-text"><strong>Horario:</strong> <span id="restaurantHours"></span></p>
+              <p class="card-text"><strong>Teléfono:</strong> <span id="restaurantPhone"></span></p>
+              <p class="card-text"><strong>Precio promedio:</strong> <span id="restaurantPrice"></span></p>
               <button class="btn btn-outline-danger btn-sm"><i class="fa fa-heart"></i></button>
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary btn-reservar" data-toggle="modal" data-target="#reservationModal">
                 Reservar
               </button>
-              
             </div>
           </div>
           <div class="card mb-3">
@@ -99,7 +90,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="reservationModalLabel">Hacer una Reserva</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" the="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -135,15 +126,15 @@
 
   <!-- footer section -->
   <footer class="footer_section">
-    <div the="container">
+    <div class="container">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a><br>
-        Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+        <a href="https://statik.uy">Statik</a><br>
+        Distributed By: <a href="https://statik.uy">Beelvi</a>
       </p>
     </div>
   </footer>
-  <!-- end footer section -->
+  <!-- footer section -->
 
   <!-- jQuery -->
   <script src="js/jquery-3.4.1.min.js"></script>
@@ -160,20 +151,17 @@
       fetch(`http://localhost:8080/restBusquedaID/${restaurantId}`)
         .then(response => response.json())
         .then(data => {
-          // Update the DOM elements with restaurant data
-          $('.heading_container h2').text(data.nombre);
-          $('.card-img').attr('src', 'img/' + data.imagen);
-          $('.card-title').text(data.nombre);
-          $('.rating').html(renderStars(data.calificacion)); // Assuming 'calificacion' is a float or integer
-          $('.card-text span:last').text(data.tipo);
-          $('strong.Dirección').parent().append(data.dirección);
-          $('strong.Horario').parent().append(data.horario);
-          $('strong.Teléfono').parent().append(data.teléfono);
-          $('strong.Precio promedio').parent().append(`hasta $${data.precio}`);
+          $('#restaurantName').text(data.nombre);
+          $('#restaurantImage').attr('src', 'img/' + data.imagen);
+          $('#restaurantTitle').text(data.nombre);
+          $('#restaurantRating').html(renderStars(data.calificacion));
+          $('#restaurantType').text(data.tipo);
+          $('#restaurantAddress').text(data.calle);
+          $('#restaurantHours').text(`De ${data.hora_inicio} a ${data.hora_fin}`);
+          $('#restaurantPhone').text(data.telefono);
+          $('#restaurantPrice').text(`$${data.precio}`);
           $('#aboutRestaurant').text(data.descripcion);
-
-          // Set the Google Maps iframe src attribute
-          $('#map').html(`<iframe width="100%" height="100%" src="https://www.google.com/maps?q=${encodeURIComponent(data.dirección)}&output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>`);
+          $('#map').html(`<iframe width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen src="${data.google}"></iframe>`);
         })
         .catch(error => console.error('Error:', error));
 
