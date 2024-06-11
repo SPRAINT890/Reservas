@@ -96,16 +96,22 @@
       const restaurantName = urlParams.get('restaurant');
       const location = urlParams.get('location');
       if (restaurantName.length == 0){
-        restaurantName  = "False"
-      }
-      if (location.length == 0){
-        location  = "False"
-      }
-      fetch(`http://localhost:8080/restBusqueda/${restaurantName},${location}`)
+        fetch(`http://localhost:8080/restBusquedaDir/${location}`)
         .then(response => response.json())
         .then(data => displayResults(data))
         .catch(error => console.error('Error al obtener datos:', error));
-
+      }
+      else if (location.length == 0){
+        fetch(`http://localhost:8080/restBusquedaNom/${restaurantName}`)
+        .then(response => response.json())
+        .then(data => displayResults(data))
+        .catch(error => console.error('Error al obtener datos:', error));
+      }else{
+        fetch(`http://localhost:8080/restBusqueda/${restaurantName},${location}`)
+        .then(response => response.json())
+        .then(data => displayResults(data))
+        .catch(error => console.error('Error al obtener datos:', error));
+      }
       function displayResults(results) {
         $('#searchResults').empty();
         if (results.length > 0) {

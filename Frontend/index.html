@@ -526,7 +526,6 @@
     event.preventDefault();
     const restaurantName = $('#inputRestaurant').val();
     const location = $('#inputLocation').val();
-    
     // Redirigir a search.html con los parámetros de búsqueda
     window.location.href = `search.html?restaurant=${encodeURIComponent(restaurantName)}&location=${encodeURIComponent(location)}`;
   });
