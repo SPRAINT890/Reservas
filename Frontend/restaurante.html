@@ -142,7 +142,6 @@
   <script src="js/bootstrap.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-
   <script>
     $(document).ready(function() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -157,11 +156,31 @@
           $('#restaurantRating').html(renderStars(data.calificacion));
           $('#restaurantType').text(data.tipo);
           $('#restaurantAddress').text(data.calle);
-          $('#restaurantHours').text(`De ${data.hora_inicio} a ${data.hora_fin}`);
+          $('#restaurantHours').text(`De ${data.hora_inicio.slice(0, -3)} a ${data.hora_fin.slice(0, -3)}`);
           $('#restaurantPhone').text(data.telefono);
           $('#restaurantPrice').text(`$${data.precio}`);
           $('#aboutRestaurant').text(data.descripcion);
           $('#map').html(`<iframe width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen src="${data.google}"></iframe>`);
+          
+          // Obtener la hora actual
+          const now = new Date();
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+
+          // Formatear la hora en formato HH:MM
+          const currentTime = `${hours}:${minutes}`;
+
+          // Establecer límites mínimos y máximos
+          const minTime = data.hora_inicio;
+          const maxTime = data.hora_fin;
+
+          // Asignar valores al input de tipo time
+          const timeInput = document.getElementById('reservationTime');
+          timeInput.setAttribute('min', minTime);
+          timeInput.setAttribute('max', maxTime);
+
+          // Si deseas que la hora predeterminada sea la hora actual, usa:
+          timeInput.setAttribute('value', minTime);
         })
         .catch(error => console.error('Error:', error));
 
@@ -200,6 +219,21 @@
       if (rating % 1 !== 0) stars += '<i class="fa fa-star-half-o"></i>';
       return stars;
     }
+
+    // Obtener la fecha actual
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // Formatear la fecha en formato YYYY-MM-DD
+    const todayFormatted = `${year}-${month}-${day}`;
+
+    // Asignar la fecha mínima al input
+    document.getElementById('reservationDate').setAttribute('min', todayFormatted);
+
+    // Si deseas que la fecha predeterminada también sea hoy, usa:
+    // document.getElementById('start').setAttribute('value', todayFormatted);
   </script>
 
 </body>
