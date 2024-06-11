@@ -22,15 +22,21 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.get("/restBusquedaDir/{calle}", status_code=status.HTTP_202_ACCEPTED)
 async def get_restaurante_by_location(calle: str, db: db_dependency):
-    return db.query(models.Restaurante).filter(or_(models.Restaurante.esquina == calle, models.Restaurante.calle == calle)).all()
+    return db.query(models.Restaurante).filter(or_(models.Restaurante.esquina.contains(calle), models.Restaurante.calle.contains(calle))).all()
 
 @router.get("/restBusquedaNom/{nombre}", status_code=status.HTTP_202_ACCEPTED)
 async def get_restaurante_by_name(nombre: str, db: db_dependency):
-    return db.query(models.Restaurante).filter(models.Restaurante.nombre == nombre).all()
+    return db.query(models.Restaurante).filter(models.Restaurante.nombre.contains(nombre)).all()
 
-@router.get("/restBusqueda/{nombre}{calle}", status_code=status.HTTP_202_ACCEPTED)
+@router.get("/restBusqueda/{nombre},{calle}", status_code=status.HTTP_202_ACCEPTED)
 async def get_restaurante(nombre: str, calle: str, db: db_dependency):
-    return db.query(models.Restaurante).filter(models.Restaurante.nombre == nombre,or_(models.Restaurante.calle == calle,models.Restaurante.esquina == calle)).all()
+    if (nombre == "False" and calle ==  "False"):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="los datos no tienen valor")
+    if (nombre == "False"):
+        return await get_restaurante_by_location(calle, db)
+    if (calle == "False"):
+        return await get_restaurante_by_name(nombre, db)
+    return db.query(models.Restaurante).filter(models.Restaurante.nombre.contains(nombre),or_(models.Restaurante.calle.contains(calle),models.Restaurante.esquina.contains(calle))).all()
 
 @router.post("/agregarrestaurante", status_code=status.HTTP_201_CREATED)
 async def add_restaurant(newrestaurantraw: RestauranteBase, db: db_dependency):
