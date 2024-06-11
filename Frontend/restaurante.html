@@ -167,7 +167,7 @@
 
       $('#reservationForm').submit(function(event) {
         event.preventDefault();
-
+        
         let email = $('#email').val()
         let idrestaurante = restaurantId
         let fecha = $('#reservationDate').val()
@@ -179,7 +179,6 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(reservationData)
         })
         .then(response => response.json())
         .then(data => {

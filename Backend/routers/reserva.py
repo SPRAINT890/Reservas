@@ -34,7 +34,7 @@ async def get_reservas(id_restaurante: int, db: db_dependency):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bd Caida")
 
 @router.post("/hacerreserva")
-async def create_reserva(email: str, idrestaurante: int, hora: int, fecha: str, numsillas: int, db: db_dependency):
+async def create_reserva(email: str, idrestaurante: int, hora: str, fecha: str, numsillas: int, db: db_dependency):
     
     
     
