@@ -22,7 +22,7 @@ class Restaurante(Base):
     precio = Column(Integer)
     tipo = Column(String(50))
     telefono = Column(Integer)
-    google = Column(String(250))
+    google = Column(String(500))
     hora_inicio = Column(Time)
     hora_fin = Column(Time)
     descripcion = Column(String(600)) 
