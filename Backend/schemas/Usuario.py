@@ -3,6 +3,7 @@ from pydantic import BaseModel #para hacer clases
 
 class UsuarioBase(BaseModel):
     ci: int
+    username: str
     nombre: str
     apellido: Optional[str]
     email: str
